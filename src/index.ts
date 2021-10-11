@@ -1,16 +1,25 @@
+import DebuggerService from "./services/DebuggerService";
 import ExpressService from "./services/ExpressService";
+import MongooseService from "./services/MongooseService";
+
+require('dotenv').config();
 
 class Application {
+    private debugger: DebuggerService;
+    private mongooseService: MongooseService;
     private expressService: ExpressService;
 
     constructor() {
+        this.debugger = new DebuggerService('Application');
+        this.mongooseService = new MongooseService();
         this.expressService = new ExpressService();
     }
 
     public initialize() {
-        require('dotenv').config();
+        this.debugger.info(`Initializing..`);
 
-        this.expressService.initialize();
+        this.mongooseService.initialize();
+        this.expressService.initialize();    
     }
 }
 

@@ -1,0 +1,40 @@
+{% extends "./layout.njk" %}
+
+{% block head %}
+<title>Register | Vely</title>
+<link rel="stylesheet" href="/assets/css/formOverwrite.css">
+{% endblock %}
+
+{% block body %}
+<div class="d-flex flex-justify-center flex-items-center" style="width: 100vw; height: 100vh;">
+    <form class="Box color-bg-overlay">
+        <div class="Box-header Box--spacious">
+            <h3 class="text-center">Register</h3>
+        </div>
+
+        <div class="Box-row text-center">
+            <label for="username">Username</label>
+            <input class="form-control ml-2" type="text" id="username" />
+        </div>
+
+        <div class="Box-row text-center">
+            <label for="email">E-Mail</label>
+            <input class="form-control ml-2" type="email" id="email" />
+        </div>
+
+        <div class="Box-row text-center">
+            <label for="password">Password</label>
+            <input class="form-control ml-2" type="password" id="password" />
+        </div>
+        
+        <div class="Box-row text-center">
+            <label for="repeat-password">Repeat Password</label>
+            <input class="form-control ml-2" type="password" id="repeat-password" />
+        </div>
+
+        <div class="Box-footer">
+            <button class="btn btn-block btn-primary" type="submit">Register</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
