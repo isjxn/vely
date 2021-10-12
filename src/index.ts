@@ -19,7 +19,7 @@ class Application {
         this.debugger.info(`Initializing..`);
 
         this.mongooseService.initialize();
-        this.expressService.initialize();    
+        this.expressService.initialize();
     }
 }
 

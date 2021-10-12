@@ -8,14 +8,17 @@ import passport from 'passport';
 import { IUser, User } from '../models/User';
 const LocalStrategy = require('passport-local').Strategy;
 import bcrypt from 'bcrypt';
+import Recaptcha, { RecaptchaV3 } from 'express-recaptcha';
 
 export default class ExpressService {
     private debugger: DebuggerService;
     private app: Application;
+    private recaptcha: RecaptchaV3;
 
     constructor() {
         this.debugger = new DebuggerService('Express');
         this.app = express();
+        this.recaptcha = new RecaptchaV3(process.env.RECAPTCHA_SITE_KEY as unknown as string, process.env.RECAPTCHA_SECRET_KEY as unknown as string);
     }
 
     public initialize() {
@@ -27,7 +30,7 @@ export default class ExpressService {
     }
 
     private registerMiddlewares() {
-        this.app.use(bodyParser.urlencoded({ extended: false }));
+        this.app.use(bodyParser.urlencoded({ extended: true }));
         this.app.use(bodyParser.json());
         this.app.use(express.static('public'));
 
