@@ -7,7 +7,7 @@ require('dotenv').config();
 class Application {
     private debugger: DebuggerService;
     private mongooseService: MongooseService;
-    private expressService: ExpressService;
+    public expressService: ExpressService;
 
     constructor() {
         this.debugger = new DebuggerService('Application');
@@ -26,3 +26,7 @@ class Application {
 const application = new Application();
 
 application.initialize();
+
+const expressService = application.expressService;
+
+export { expressService };

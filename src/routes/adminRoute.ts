@@ -1,5 +1,6 @@
 import express from 'express';
 import passport from 'passport';
+//import { render, verify } from '..';
 import getAdminController from '../controllers/admin/getAdminController';
 import getAdminLoginController from '../controllers/admin/login/getAdminLoginController';
 import getAdminRegisterController from '../controllers/admin/register/getAdminRegisterController';
