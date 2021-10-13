@@ -59,7 +59,6 @@ export default class ExpressService {
             if (req.path != '/login' && req.path != '/register' && req.path != '/auth/github' && req.path != '/auth/github/callback') {
                 if (req.session.passport) {
                     if (req.session.passport.user != undefined) {
-                        console.log(req.session.passport);
                         const user = await User.findById(req.session.passport.user._id);
                         if (user) {
                             if (user.active) {
