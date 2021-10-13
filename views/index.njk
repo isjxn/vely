@@ -1,12 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-color-mode="dark" data-dark-theme="dark" class="color-bg-inset">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
+    <title>Home | NanoLogic</title>
+    <link href="https://unpkg.com/@primer/css@^18.0.0/dist/primer.css" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/main.css">
 </head>
-<body>
-    Index
+<body class="d-flex flex-justify-center flex-items-center flex-column">
+    <h1 class="p-3 border rounded-3 color-bg-overlay">Welcome to NanoLogic</h1>
+    <p class="p-3 mt-4" id="quote"></p>
+    <script>
+    function httpGetAsync(theUrl, callback)
+    {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = function() { 
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                callback(xmlHttp.responseText);
+        }
+        xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+        xmlHttp.send(null);
+    }
+
+    httpGetAsync('https://api.quotable.io/random', response => {
+        console.log(response);
+        document.getElementById('quote').innerHTML = JSON.parse(response).content;
+    });
+    /*axios.get('https://zenquotes.io/api/random')
+            .then(response => {
+                console.log(response);
+            });*/
+    </script>
 </body>
 </html>
