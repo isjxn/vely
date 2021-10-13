@@ -9,19 +9,25 @@ export const registerUser = async (registerUserObject: IRegisterUser, callback: 
             if (registerUserObject.email.length > 4 && registerUserObject.email.includes('@') && registerUserObject.email.includes('.')) {
                 if (registerUserObject.password.length > 0) {
                     if (registerUserObject.passwordRepeat.length > 0) {
-                        const hash: string = await bcrypt.hash(registerUserObject.password, 10)
+                        const searchUser = await User.findOne({ username: registerUserObject.username });
 
-                        if (hash) {
-                            const user: IUser = new User({
-                                username: registerUserObject.username,
-                                email: registerUserObject.email,
-                                password: hash,
-                                rank: UserRank.User
-                            });
-
-                            user.save().then(() => callback(true, null, user));
+                        if (searchUser) {
+                            callback(false, `Username has already been taken`);
                         } else {
-                            callback(false, 'An internal error occured');
+                            const hash: string = await bcrypt.hash(registerUserObject.password, 10)
+
+                            if (hash) {
+                                const user: IUser = new User({
+                                    username: registerUserObject.username,
+                                    email: registerUserObject.email,
+                                    password: hash,
+                                    rank: UserRank.User
+                                });
+
+                                user.save().then(() => callback(true, null, user));
+                            } else {
+                                callback(false, 'An internal error occured');
+                            }
                         }
                     } else {
                         callback(false, 'Repeat Password can\'t be empty');

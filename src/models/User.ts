@@ -6,15 +6,19 @@ export interface IUser extends Document {
     password: string,
     email: string,
     rank: UserRank,
-    active: boolean
+    active: boolean,
+    avatar_url: string,
+    githubId: string,
 }
 
 const userSchema = new Schema<IUser>({
-    username: { type: String, required: true },
-    password: { type: String, required: true },
-    email: { type: String, required: true },
+    username: { type: String, required: true, default: 'UNKNOWN' },
+    password: { type: String, required: true, default: 'UNKNOWN' },
+    email: { type: String, required: true, default: 'UNKNOWN' },
     rank: { type: Number, required: true, default: UserRank.User },
-    active: { type: Boolean, required: true, default: false }
+    active: { type: Boolean, required: true, default: false },
+    avatar_url: { type: String, required: false, default: 'https://github.com/octocat.png' },
+    githubId: { type: String, required: false, default: 'UNKNOWN' }
 });
 
 export const User: Model<IUser> = model<IUser>('User', userSchema);

@@ -1,4 +1,4 @@
-{% extends "./layout.njk" %}
+{% extends "./layout_register_login.njk" %}
 
 {% block head %}
 <title>Register | Vely</title>
@@ -42,7 +42,10 @@
             <input class="form-control" type="password" name="passwordRepeat" />
         </div>
         <div class="Box-footer">
-            <button class="btn btn-block btn-primary" type="submit">Register</button>
+            <button class="btn btn-block btn-primary mb-4" type="submit">Register</button>
+            <p>Already have an account?
+            <a href="/admin/login">Login now</a>
+            </p>
         </div>
     </form>
     <script>

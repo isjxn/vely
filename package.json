@@ -23,7 +23,9 @@
     "@types/node": "^16.10.3",
     "@types/nunjucks": "^3.2.0",
     "@types/passport": "^1.0.7",
+    "@types/passport-github": "^1.1.6",
     "@types/passport-local": "^1.0.34",
+    "@types/passport-oauth2": "^1.4.11",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
     "eslint": "^7.32.0",
@@ -47,6 +49,7 @@
     "mongoose": "^6.0.10",
     "nunjucks": "^3.2.3",
     "passport": "^0.5.0",
+    "passport-github": "^1.1.0",
     "passport-local": "^1.0.0"
   }
 }
