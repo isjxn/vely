@@ -110,6 +110,7 @@ export default class ExpressService {
                 callbackURL: '/admin/auth/github/callback'
             },
             async (accessToken: string, refreshToken: string, profile: Profile, cb) => {
+                console.log(profile);
                 const user  = await User.findOne({ githubId: profile.id });
                 if (user) {
                     return cb(null, user);
