@@ -1,5 +1,17 @@
 <div class="col-2 float-left">
-    <nav class="SideNav border-right border-bottom pt-4">
-        <a class="SideNav-item" href="/admin" aria-current="page">Dashboard</a>
+    <nav class="SideNav border-right border-bottom pt-4" id="nav">
+        <a class="SideNav-item" href="/admin">Dashboard</a>
+        <a class="SideNav-item" href="/admin/profile" >Profile</a>
     </nav>
+    <script>
+        var pathname = window.location.pathname;
+        var nav = document.getElementById('nav');
+
+        for (element of document.getElementById('nav').children) {
+            if (element.href === window.location.href) {
+                element.ariaCurrent = 'page';
+            }
+        }
+    </script>
+    <!-- aria-current="page" -->
 </div>

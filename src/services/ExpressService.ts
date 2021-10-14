@@ -83,7 +83,7 @@ export default class ExpressService {
                 next();
             }
         });
-    
+
         passport.use(new LocalStrategy((username: string, password: string, done: Function) => {
             User.findOne({ username: username }, (err: Error, user: IUser) => {
                 if (err) return done(err);
@@ -111,15 +111,31 @@ export default class ExpressService {
             },
             async (accessToken: string, refreshToken: string, profile: Profile, cb) => {
                 const user  = await User.findOne({ githubId: profile.id });
+
                 if (user) {
                     return cb(null, user);
                 } else {
-                    const newProfile: INewProfile = profile as INewProfile;
-                    const newUser = new User({ username: profile.username, githubId: profile.id, avatar_url: newProfile._json.avatar_url });
+                    const userCheckedUsername = await User.findOne({ username: profile.username })
+                    if (userCheckedUsername) {
+                        if (userCheckedUsername.githubId === 'UNKNOWN') {
+                            return cb(null, false, { message: 'Existing Account is not connected to GitHub.\nIf you want to use GitHub authentication connect your GitHub account in your profile settings.' });
+                        } else if (userCheckedUsername.githubId === 'AUTH') {
+                            userCheckedUsername.githubId = profile.id;
 
-                    newUser.save().then(() => {
-                        return cb(null, newUser);
-                    });
+                            userCheckedUsername.save().then(() => {
+                                return cb(null, userCheckedUsername)
+                            });
+                        } else {
+                            return cb(null, false, { message: 'Wow! You managed to create an error we didn\'t know could happen, please report it to: admin@nanologic.dev'});
+                        }
+                    } else {
+                        const newProfile: INewProfile = profile as INewProfile;
+                        const newUser = new User({ username: profile.username, githubId: profile.id, avatar_url: newProfile._json.avatar_url });
+
+                        newUser.save().then(() => {
+                            return cb(null, newUser);
+                        });
+                    }
                 }
             }
         ));
