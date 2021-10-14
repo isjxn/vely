@@ -44,7 +44,7 @@ export default class ExpressService {
         this.app.use(bodyParser.json());
         this.app.use(express.static('public'));
         this.app.use(cors({
-            origin: process.env.CORS_URL as unknown as string
+            origin: process.env.HTTP_URL as unknown as string
         }));
         this.app.use(session({ 
             secret: 'velycmsnanologic',
@@ -92,7 +92,7 @@ export default class ExpressService {
                     return done(null, false, { message: 'Incorrect username.' });    
                 }
 
-                bcrypt.compare(password, user.password, (err, result) => {
+                bcrypt.compare(password, user.password, (err: Error | undefined, result: boolean) => {
                     if (err) return done(err);
 
                     if (result) {
@@ -107,10 +107,9 @@ export default class ExpressService {
         passport.use(new GitHubStrategy({
                 clientID: process.env.GITHUB_CLIENT_ID as unknown as string,
                 clientSecret: process.env.GITHUB_CLIENT_SECRET as unknown as string,
-                callbackURL: '/admin/auth/github/callback'
+                callbackURL: `${process.env.HTTP_URL}/admin/auth/github/callback`
             },
             async (accessToken: string, refreshToken: string, profile: Profile, cb) => {
-                console.log(profile);
                 const user  = await User.findOne({ githubId: profile.id });
                 if (user) {
                     return cb(null, user);
@@ -125,11 +124,11 @@ export default class ExpressService {
             }
         ));
 
-        passport.serializeUser((user, done) => {
+        passport.serializeUser((user: any, done: any) => {
             done(null, user);
           });
 
-        passport.deserializeUser(function(id, done) {
+        passport.deserializeUser(function(id: any, done: any) {
             User.findById(id, (err: Error, user: IUser) => {
               done(err, user);
             });
