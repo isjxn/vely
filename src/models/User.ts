@@ -9,6 +9,8 @@ export interface IUser extends Document {
     active: boolean,
     avatar_url: string,
     githubId: string,
+    githubAccessToken: string,
+    githubUsername: string
 }
 
 const userSchema = new Schema<IUser>({
@@ -18,7 +20,9 @@ const userSchema = new Schema<IUser>({
     rank: { type: Number, required: true, default: UserRank.User },
     active: { type: Boolean, required: true, default: false },
     avatar_url: { type: String, required: false, default: 'https://github.com/octocat.png' },
-    githubId: { type: String, required: false, default: 'UNKNOWN' }
+    githubId: { type: String, required: false, default: 'UNKNOWN' },
+    githubAccessToken: { type: String, required: false, default: 'UNKNOWN' },
+    githubUsername: { type: String, required: false, default: 'UNKNOWN' },
 });
 
 export const User: Model<IUser> = model<IUser>('User', userSchema);

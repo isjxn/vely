@@ -41,5 +41,20 @@
       </li>
     </ul>
   </div>
+
+  {% if user.githubId != "UNKNOWN" %}
+  <div class="Box mt-4">
+    <div class="Box-header">
+      <h4>GitHub Repositories</h4>
+    </div>
+    <ul>
+      <li class="Box-row">
+          {% for repo in repos %}
+          <a class="Link--primary mr-2" href="{{ repo.html_url }}">{{ repo.full_name }}</a>
+          {% endfor %}
+      </li>
+    </ul>
+  </div>
+  {% endif %}
 </div>
 {% endblock %}
